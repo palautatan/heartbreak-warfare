@@ -5,18 +5,48 @@ date: "4/26/2019"
 output: pdf_document
 ---
 
-I will get to know the dataset
+Let's get to know the dataset:
 ```{r}
+library(dplyr)
+library(ggplot2)
+
 # read training data (to build model)
 train <- read.csv("../../Data/train_values.csv")
 labels <- read.csv("../../Data/train_labels.csv")
 
 # we will use this to assess our model
 test <- read.csv("../../Data/test_values.csv")
+
+# peek in
+head(train)
+head(labels)
+head(test)
+
+# general structure of the dataframe
+str(train)
+names(train)
 ```
 
 
-I will want to conduct SuperLearner as well as cross-validated SuperLearner on this data. 
+EDA on training data:
+```{r}
+# distribution of cholesterol
+ggplot(data = train, aes(x = serum_cholesterol_mg_per_dl)) + geom_histogram(col = "white")
+
+# breakdown of heart disease
+ggplot(data = labels, aes(x = heart_disease_present)) + geom_bar()
+
+# merge the data
+total <- merge(train, labels, by = "patient_id")
+
+# cholesterol distribution by heart disease presence
+ggplot(data = total, aes(x = serum_cholesterol_mg_per_dl)) + 
+  geom_histogram(col = "white") + 
+  facet_wrap(~ heart_disease_present, nrow = 2)
+```
+
+
+We will want to conduct SuperLearner as well as cross-validated SuperLearner on this data. 
 
 We also need to develop the ROC curve as a measure of performance.
 
@@ -29,5 +59,6 @@ CV.AUC : this will give the AUC and confidence interval without us having to do 
 OTHER:
 (1) Come up with non-parametric estimate of causal relationship
 (2) Give background to the study (question we are interested in), previous findings, present the data, define the parameter of interest, etc.
+(3) Where does this data come from? Who are the participants? Get to know the data & data generating process very very well..
 
 
