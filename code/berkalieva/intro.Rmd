@@ -1,0 +1,33 @@
+---
+title: "Getting to know the data"
+author: "Asem Berkalieva"
+date: "4/26/2019"
+output: pdf_document
+---
+
+I will get to know the dataset
+```{r}
+# read training data (to build model)
+train <- read.csv("../../Data/train_values.csv")
+labels <- read.csv("../../Data/train_labels.csv")
+
+# we will use this to assess our model
+test <- read.csv("../../Data/test_values.csv")
+```
+
+
+I will want to conduct SuperLearner as well as cross-validated SuperLearner on this data. 
+
+We also need to develop the ROC curve as a measure of performance.
+
+CV.AUC : this will give the AUC and confidence interval without us having to do the calculations
+
+
+
+
+
+OTHER:
+(1) Come up with non-parametric estimate of causal relationship
+(2) Give background to the study (question we are interested in), previous findings, present the data, define the parameter of interest, etc.
+
+
